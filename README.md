@@ -47,3 +47,10 @@ CMD ["node", "/home/app/server.js"]
 (or see my modified one in this repo!)
 
 If you do this remember to rebuild wiht `docker compose build`
+
+
+UPDATE:
+
+>However, now my MongoClient.connect() in the server.js doesn't work. Need to figure out how to connect to a containerised db.
+
+No, that's becuase you've run `mongo` and `mongo-express` in one set of containers with compose, and then `my_app` separately with `docker run` . Docker will create separate virtual networks for these so they won't be able to connect. If you do as above and add a service entry for your app then everything will work out perfectly
