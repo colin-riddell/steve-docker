@@ -22,6 +22,11 @@ Either way to get this working as you'd expect you need to:
 * If you now to `docker compose build` it will build any services that have a `build:` (which is only this one). This should work good. So now your compose knows about the api app (or whatever you want to call it..) 
 
 
+* Update server.js to pont to the container `mongo`.
+Docker containers have thier own dns names.. thy use the service name you created in the compose to make the name of the container.. So now when connecting to mongodb it's not on localhost, but instead it's on a machine called `mongodb`.
+```
+MongoClient.connect('mongodb://admin:password@mongodb:27018', { useNewUrlParser: true, useUnifiedTopology: true })
+```
 
 Doing docker compose build then `docker compose up` might all work now. Should be able to go to `localhost:9000` to hit your app!! I couldn't try it as I think I'm missing some files?!
 
@@ -47,6 +52,7 @@ CMD ["node", "/home/app/server.js"]
 (or see my modified one in this repo!)
 
 If you do this remember to rebuild wiht `docker compose build`
+
 
 
 UPDATE:
